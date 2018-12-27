@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}</title>
+</head>
+<body>
+<h3>
+  UI perf test
+</h3>
+<h4>
+  {% if running_selenium %}
+  Test is running!<br>
+    {% for str in selenium_msg %}
+      {{ str }} <br>
+    {% endfor %}
+  <a href="/selenium/log">Output log</a>
+  <br>
+  <a href="/selenium/results">All results</a>
+</h4>
+  {% else %}
+  Test is not running<br>
+  Last results: <a href="{{ selenium_results_url }}">{{ selenium_results_text }}</a><br>
+  <a href="/selenium/results">All results</a>
+</h4>
+  <form method="post" action="/run_selenium">
+    Server: <input type="text" name="url" value="https://ggrc-perf.appspot.com" size="40" disabled>&nbsp;&nbsp;&nbsp;
+    Iterations: <input type="text" name="iter" size="2" maxlegth="2" value="3">&nbsp;&nbsp;&nbsp;
+    <button type="submit" value="run">Run test</button>
+  </form>
+  {% endif %}
+</h4>
+<h3>
+  Backend perf test
+</h3>
+<h4>
+  {% if running_jmeter %}
+  Test is running!
+    {% for str in jmeter_msg %}
+      {{ str }} <br>
+    {% endfor %}
+  <a href="/jmeter/log">Output log</a>
+  <br>
+  <a href="/jmeter/results">All results</a>
+</h4>
+  {% else %}
+  Test is not running<br>
+  Last results: <a href="{{ jmeter_results_url }}">{{ jmeter_results_text }}</a><br>
+  <a href="/jmeter/results">All results</a>
+</h4>
+  <form method="post" action="/run_jmeter">
+    Server: <input type="text" name="url" value="https://ggrc-perf.appspot.com" size="40" disabled>&nbsp;&nbsp;&nbsp;
+    Iterations: <input type="text" name="iter" size="2" maxlegth="2" value="3">&nbsp;&nbsp;&nbsp;
+    <button type="submit" value="run">Run test</button>
+  </form>
+  {% endif %}
+</h4>
+
+<!-- <h2>Stdout:</h2>
+<pre>{{out}}</pre>
+<h2>Stderr:</h2>
+<pre>{{err}}</pre>
+-->
+</body>
+</html>
